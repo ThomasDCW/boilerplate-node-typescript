@@ -1,0 +1,24 @@
+POST http://localhost:8000/api/grade
+Content-Type: application/json
+
+{
+    "value":"5"
+}
+
+###
+GET http://localhost:8000/api/grade
+
+### 
+DELETE  http://localhost:8000/api/grade/
+
+
+###
+PUT   http://localhost:8000/api/grade
+Content-Type: application/json
+
+{
+    "id":"5",
+    "value":"5"
+}
+
+

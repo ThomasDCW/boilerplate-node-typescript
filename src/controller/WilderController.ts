@@ -1,6 +1,4 @@
 import { Request, Response } from "express";
-import { Skill } from "../entity/Skill";
-import { Grade } from "../entity/Grade";
 import { Wilder } from "../entity/Wilder";
 import dataSource from "../utils";
 
@@ -47,46 +45,6 @@ const WilderController = {
     } catch (err) {
       console.log(err);
       res.send("wilder not updated");
-    }
-  },
-
-  addSkill: async (req: Request, res: Response) => {
-    try {
-      const wilderToUpdate = await dataSource
-        .getRepository(Wilder)
-        .findOneByOrFail({ name: req.body.wilderName });
-      console.log("wilder", wilderToUpdate);
-      const skillToAdd = await dataSource
-        .getRepository(Skill)
-        .findOneByOrFail({ name: req.body.skillName });
-      wilderToUpdate.skills?.push(skillToAdd);
-      console.log("Skill", skillToAdd);
-      await dataSource.getRepository(Wilder).save(wilderToUpdate);
-      res.send("Skill added to wilder");
-    } catch (err) {
-      console.log(err);
-      res.send("Error while adding skill to wilder");
-    }
-  },
-  rateSkill: async (req: Request, res: Response) => {
-    try {
-      const wilderToUpdate = await dataSource
-        .getRepository(Wilder)
-        .findOneByOrFail({ name: req.body.wilderName });
-      console.log(wilderToUpdate);
-      const skillToRate = await dataSource
-        .getRepository(Skill)
-        .findOneByOrFail({ name: req.body.skillName });
-      console.log(skillToRate);
-      await dataSource.getRepository(Grade).save({
-        value: req.body.value,
-        skills: skillToRate,
-        wilders: wilderToUpdate,
-      });
-      res.send("Skill successfully rated !");
-    } catch (err) {
-      console.log(err);
-      res.send("Error while rating the skill.");
     }
   },
 };

@@ -8,7 +8,13 @@ export class Grade {
   id: number;
 
   @Column()
-  value?: number;
+  wilderId: number;
+
+  @Column()
+  skillId: number;
+
+  @Column()
+  grade: number;
 
   @ManyToOne(() => Wilder, (wilder) => wilder.grades)
   wilder?: Wilder;

@@ -1,6 +1,6 @@
 import wildercontroller from "./controller/WilderController";
 import skillcontroller from "./controller/SkillController";
-import gradeController from "./controller/GradeController";
+
 import express, { Request, Response } from "express";
 import cors from "cors";
 import dataSource from "./utils";
@@ -16,20 +16,13 @@ app.get("/", (_req: Request, res: Response) => {
 
 app.get("/api/wilder", wildercontroller.read);
 app.post("/api/wilder", wildercontroller.create);
-app.put("/api/wilder/addskill", wildercontroller.addSkill);
 app.delete("/api/wilder/:id", wildercontroller.delete);
 app.put("/api/wilder", wildercontroller.update);
-app.put("/api/wilder-rate-skill", wildercontroller.rateSkill);
 
 app.get("/api/skill", skillcontroller.read);
 app.post("/api/skill", skillcontroller.create);
 app.delete("/api/skill/:id", skillcontroller.delete);
 app.put("/api/skill", skillcontroller.update);
-
-app.get("/api/grade", gradeController.read);
-app.post("/api/grade", gradeController.create);
-app.put("/api/grade", gradeController.update);
-app.delete("/api/grade/:id", gradeController.delete);
 
 const start = async (): Promise<void> => {
   await dataSource.initialize();

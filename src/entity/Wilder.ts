@@ -1,13 +1,5 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToMany,
-  JoinTable,
-  OneToMany,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 
-import { Skill } from "./Skill";
 import { Grade } from "./Grade";
 
 @Entity()
@@ -21,12 +13,6 @@ export class Wilder {
   @Column()
   city: string;
 
-  @ManyToMany((type) => Skill, {
-    eager: true,
-  })
-  @JoinTable()
-  skills: Skill[];
-
-  @OneToMany(() => Grade, (grade) => grade.wilder)
-  grades?: Grade[];
+  @OneToMany(() => Grade, (grade) => grade.wilder, { eager: true })
+  grades: Grade[];
 }

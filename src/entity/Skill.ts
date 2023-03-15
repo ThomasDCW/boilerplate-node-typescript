@@ -10,5 +10,5 @@ export class Skill {
   name?: string;
 
   @OneToMany(() => Grade, (grade) => grade.skill)
-  grades?: Grade[];
+  grades: Grade[];
 }

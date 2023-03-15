@@ -6,7 +6,7 @@ export class Skill {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name?: string;
 
   @OneToMany(() => Grade, (grade) => grade.skill)

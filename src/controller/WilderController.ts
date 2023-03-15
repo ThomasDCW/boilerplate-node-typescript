@@ -18,7 +18,9 @@ const WilderController = {
 
   read: async (req: Request, res: Response) => {
     try {
-      const allWilders = await dataSource.getRepository(Wilder).find();
+      const allWilders = await dataSource
+        .getRepository(Wilder)
+        .find({ relations: { grades: { skill: true } } });
       res.send(allWilders);
     } catch (err) {
       console.log(err);

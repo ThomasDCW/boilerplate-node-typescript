@@ -1,16 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from "typeorm";
+import { Entity, PrimaryColumn, ManyToOne, Column } from "typeorm";
 import { Skill } from "./Skill";
 import { Wilder } from "./Wilder";
 
 @Entity()
 export class Grade {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column()
+  @PrimaryColumn()
   wilderId: number;
 
-  @Column()
+  @PrimaryColumn()
   skillId: number;
 
   @Column()

@@ -4,6 +4,6 @@ Content-Type: application/json
 {
     "wilderName":"toto",
     "skillName":"React",
-    "grade":4
+    "grade":5
 }
 

@@ -4,16 +4,21 @@ import dataSource from "../utils";
 
 const SkillController = {
   create: (req: Request, res: Response) => {
-    dataSource
-      .getRepository(Skill)
-      .save(req.body)
-      .then(() => {
-        res.send("Skill created");
-      })
-      .catch((err) => {
-        console.log(err, "Error when creating Skill");
-        res.send("Error when creating Skill");
-      });
+    const name: string = req.body.name.trim();
+    if (name.length === 0) {
+      return res.status(400).send("skill can't be empty");
+    } else {
+      dataSource
+        .getRepository(Skill)
+        .save({ name })
+        .then(() => {
+          res.send("Skill created");
+        })
+        .catch((err) => {
+          console.log(err, "Error when creating Skill");
+          res.send("Error when creating Skill");
+        });
+    }
   },
 
   read: async (req: Request, res: Response) => {

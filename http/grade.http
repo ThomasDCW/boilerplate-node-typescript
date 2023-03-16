@@ -2,8 +2,8 @@ POST http://localhost:8000/api/grade
 Content-Type: application/json
 
 {
-    "wilderName":"toto",
-    "skillName":"React",
-    "grade":5
+    "wilderId":"1",
+    "skillId":"1",
+    "grade":4
 }
 

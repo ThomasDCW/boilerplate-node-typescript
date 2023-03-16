@@ -9,11 +9,11 @@ const GradeController = {
     try {
       const wilderToGrade = await dataSource
         .getRepository(Wilder)
-        .findOneByOrFail({ name: req.body.wilderName });
+        .findOneByOrFail({ id: req.body.wilderId });
       console.log(wilderToGrade);
       const skillToGrade = await dataSource
         .getRepository(Skill)
-        .findOneByOrFail({ name: req.body.skillName });
+        .findOneByOrFail({ id: req.body.skillId });
       console.log(skillToGrade);
       await dataSource.getRepository(Grade).save({
         grade: req.body.grade,

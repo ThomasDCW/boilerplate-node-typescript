@@ -4,16 +4,22 @@ import dataSource from "../utils";
 
 const WilderController = {
   create: (req: Request, res: Response) => {
-    dataSource
-      .getRepository(Wilder)
-      .save(req.body)
-      .then(() => {
-        res.send("Wilder created");
-      })
-      .catch((err: any) => {
-        console.log(err, "Error when creating wilder");
-        res.send("Error when creating wilder");
-      });
+    const name: string = req.body.name.trim();
+    const city: string = req.body.city.trim();
+    if (name.length === 0 || city.length === 0) {
+      return res.status(400).send("city and name can't be empty");
+    } else {
+      dataSource
+        .getRepository(Wilder)
+        .save({ name, city })
+        .then(() => {
+          res.send("Wilder created");
+        })
+        .catch((err: any) => {
+          console.log(err, "Error when creating wilder");
+          res.send("Error when creating wilder");
+        });
+    }
   },
 
   read: async (req: Request, res: Response) => {

@@ -12,8 +12,8 @@ const WilderController = {
       dataSource
         .getRepository(Wilder)
         .save({ name, city })
-        .then(() => {
-          res.send("Wilder created");
+        .then((data) => {
+          res.send(data);
         })
         .catch((err: any) => {
           console.log(err, "Error when creating wilder");

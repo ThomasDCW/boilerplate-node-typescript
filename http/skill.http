@@ -2,7 +2,7 @@ POST http://localhost:8000/api/skill
 Content-Type: application/json
 
 {
-    "name":"TS"
+    "name":""
 }
 
 ###

@@ -1,39 +1,60 @@
-import wildercontroller from "./controller/WilderController";
-import skillcontroller from "./controller/SkillController";
-import gradecontroller from "./controller/GradeController";
-import express, { Request, Response } from "express";
-import cors from "cors";
-import dataSource from "./utils";
+import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 
-const app = express();
-const PORT = 8000;
-app.use(cors());
-app.use(express.json());
+const typeDefs = gql`
 
-app.get("/", (_req: Request, res: Response) => {
-  res.send("Hello World");
-});
+  type Wilder {
+    name: String
+    city: String
+    skills: [Skill]
+  }
+  type Skill {
+    name: String
+  }
 
-// Wilder Routes
-app.get("/api/wilder", wildercontroller.read);
-app.post("/api/wilder", wildercontroller.create);
-app.delete("/api/wilder/:id", wildercontroller.delete);
-app.put("/api/wilder", wildercontroller.update);
+  type Query {
+    wilders: [Wilder]
+    skills:[Skill]
+  }
+`;
 
-// Skill Routes
-app.get("/api/skill", skillcontroller.read);
-app.post("/api/skill", skillcontroller.create);
-app.delete("/api/skill/:id", skillcontroller.delete);
-app.put("/api/skill", skillcontroller.update);
+const skills=[
+  {
+    name:"JS"
+  },
+  {
+    name:"PHP"
+  }
+]
 
-// Grade Routes
-app.post("/api/grade", gradecontroller.create);
+const wilders = [
+  {
+    name: 'toto',
+    city: 'Lille',
+  },
+  {
+    name: 'tata',
+    city: 'Paris',
+  },
+];
 
-const start = async (): Promise<void> => {
-  await dataSource.initialize();
-  app.listen(PORT, () => {
-    console.log("Server started on 3000");
-  });
+const resolvers = {
+  Query: {
+    wilders: () => wilders,
+    skills:()=> skills
+  },
 };
 
-void start();
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  csrfPrevention: true,
+  cache: 'bounded',
+  plugins: [
+    ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+  ],
+});
+
+void server.listen().then(({ url }) => {
+  console.log(`🚀  Server ready at ${url}`);
+});

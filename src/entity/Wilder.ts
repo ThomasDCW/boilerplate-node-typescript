@@ -1,11 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { ObjectType, Field } from "type-graphql";
+import { ObjectType, Field, ID } from "type-graphql";
 import { Grade } from "./Grade";
 
 @ObjectType()
 @Entity()
 export class Wilder {
-  @Field()
+  @Field((type) => ID)
   @PrimaryGeneratedColumn()
   id: number;
 

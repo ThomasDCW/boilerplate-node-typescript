@@ -1,16 +1,15 @@
 import { Query, Resolver } from "type-graphql";
-import { Wilder } from "../entity/Wilder";
+import { Skill } from "../entity/Skill";
 import dataSource from "../utils";
 
 @Resolver()
-class WilderResolver {
-  @Query(() => [Wilder])
-  async wilders(): Promise<Wilder[]> {
+class SkillResolver {
+  @Query(() => [Skill])
+  async skills(): Promise<Skill[]> {
     const result = await dataSource
-      .getRepository(Wilder)
+      .getRepository(Skill)
       .find({ relations: { grades: { skill: true } } });
     return result;
   }
 }
-
-export default WilderResolver;
+export default SkillResolver;

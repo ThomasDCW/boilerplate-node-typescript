@@ -19,6 +19,9 @@ class WilderResolver {
     @Arg("city") city: string,
     @Arg("name") name: string
   ): Promise<Wilder> {
+    if (city.trim().length === 0 || name.trim().length === 0) {
+      throw new Error("Le nom et la ville ne peuvent pas être vides.");
+    }
     const newWilder = await dataSource
       .getRepository(Wilder)
       .save({ name, city });
